@@ -3,7 +3,7 @@ const fs = require("fs");
 const path = require("path");
 
 // ========== CONFIG ==========
-const TOKEN = "MTQxNzc0NjEzOTY0MTU0NDgzOA.GC7wLZ.aBOCrcV0PcrBG6ovW8xsN5uXerfx3fs762NiBM";           // <-- dán token của bạn vào đây
+const TOKEN = "process.env.TOKEN";           // <-- dán token của bạn vào đây
 const CHANNEL_ID = "1417744609731154000"; // <-- dán ID kênh bot hoạt động
 const ADMIN_ID = "1177116381897039906";     // <-- dán ID Discord của admin
 
@@ -330,3 +330,4 @@ client.login(TOKEN).catch(err => {
   console.error("Không thể login bot — kiểm tra TOKEN:", err);
 
 });
+
