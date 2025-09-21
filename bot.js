@@ -3,7 +3,7 @@ const fs = require("fs");
 const path = require("path");
 
 // ========== CONFIG ==========
-const TOKEN = process.env.TOKEN;          // <-- dán token của bạn vào đây
+const TOKEN = process.env.TOKEN;           // <-- lấy token từ biến môi trường
 const CHANNEL_ID = "1417744609731154000"; // <-- dán ID kênh bot hoạt động
 const ADMIN_ID = "1177116381897039906";     // <-- dán ID Discord của admin
 
@@ -328,7 +328,18 @@ client.on("messageCreate", async (message) => {
 // ===== start bot
 client.login(TOKEN).catch(err => {
   console.error("Không thể login bot — kiểm tra TOKEN:", err);
-
 });
 
+// ========== PHẦN THÊM CHO RENDER ==========
+// Tạo HTTP server đơn giản để Render detect port
+const http = require('http');
+const server = http.createServer((req, res) => {
+  res.writeHead(200, { 'Content-Type': 'text/plain' });
+  res.end('Discord bot is running on Render!');
+});
 
+const PORT = process.env.PORT || 3000;
+server.listen(PORT, () => {
+  console.log(`✅ Server is running on port ${PORT}`);
+  console.log(`✅ Bot is ready to connect to Discord`);
+});
