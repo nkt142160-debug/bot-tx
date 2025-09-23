@@ -12,7 +12,7 @@ const COOLDOWN_MS = 90 * 1000; // 90 giây cho !daily và !anh tien dz
 const BET_WINDOW_MS = 60 * 1000; // 60s cho ván cược 1-13
 const SLOT_MIN_BET = 500; // tối thiểu cược slot
 const BET_MIN = 100; // tối thiểu cược cho 1-13
-const JACKPOT_RATE = 0.30; // 15% khi 3 trùng (xác suất để trả thưởng khi 3 giống)
+const JACKPOT_RATE = 0.21; // 15% khi 3 trùng (xác suất để trả thưởng khi 3 giống)
 const MAX_BET = 1e12; // giới hạn để tránh số siêu lớn
 
 // ========= DATA LAYER (balances + cooldowns) =========
@@ -294,7 +294,7 @@ client.on("messageCreate", async (message) => {
             } else {
               for (const bet of currentBets) {
                 if (bet.group === winningGroup) {
-                  const win = bet.amount * 2; // trả 2x
+                  const win = bet.amount * 1.7; // trả 2x
                   addBalance(bet.userId, win);
                   payouts.push(`<@${bet.userId}> thắng **${fmt(win)} xu**`);
                 } else {
@@ -343,4 +343,5 @@ server.listen(PORT, () => {
   console.log(`✅ Server is running on port ${PORT}`);
   console.log(`✅ Bot is ready to connect to Discord`);
 });
+
 
