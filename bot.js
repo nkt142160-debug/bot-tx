@@ -11,8 +11,8 @@ const DATA_FILE = path.join(__dirname, "data.json");
 const COOLDOWN_MS = 90 * 1000; // 90 giây cho !daily và !anh tien dz
 const BET_WINDOW_MS = 60 * 1000; // 60s cho ván cược 1-13
 const SLOT_MIN_BET = 500; // tối thiểu cược slot
-const BET_MIN = 500; // tối thiểu cược cho 1-13
-const JACKPOT_RATE = 0.15; // 15% khi 3 trùng (xác suất để trả thưởng khi 3 giống)
+const BET_MIN = 100; // tối thiểu cược cho 1-13
+const JACKPOT_RATE = 0.30; // 15% khi 3 trùng (xác suất để trả thưởng khi 3 giống)
 const MAX_BET = 1e12; // giới hạn để tránh số siêu lớn
 
 // ========= DATA LAYER (balances + cooldowns) =========
@@ -210,9 +210,9 @@ client.on("messageCreate", async (message) => {
       if (row[0] === row[1] && row[1] === row[2]) {
         // xác suất thực sự trả thưởng JACKPOT_RATE
         if (Math.random() < JACKPOT_RATE) {
-          const win = bet * 3;
+          const win = bet * 5;
           addBalance(userId, win);
-          reply += `🎉 JACKPOT! Bạn thắng **${fmt(win)} xu** (x3)!`;
+          reply += `🎉 JACKPOT! Bạn thắng **${fmt(win)} xu** (x5)!`;
         } else {
           reply += `💥 Ra 3 trùng nhưng... xịt (không trả). Thua **${fmt(bet)} xu**.`;
         }
@@ -343,3 +343,4 @@ server.listen(PORT, () => {
   console.log(`✅ Server is running on port ${PORT}`);
   console.log(`✅ Bot is ready to connect to Discord`);
 });
+
