@@ -210,9 +210,9 @@ client.on("messageCreate", async (message) => {
       if (row[0] === row[1] && row[1] === row[2]) {
         // xác suất thực sự trả thưởng JACKPOT_RATE
         if (Math.random() < JACKPOT_RATE) {
-          const win = bet * 5;
+          const win = bet * 3;
           addBalance(userId, win);
-          reply += `🎉 JACKPOT! Bạn thắng **${fmt(win)} xu** (x5)!`;
+          reply += `🎉 JACKPOT! Bạn thắng **${fmt(win)} xu** (x3)!`;
         } else {
           reply += `💥 Ra 3 trùng nhưng... xịt (không trả). Thua **${fmt(bet)} xu**.`;
         }
@@ -276,13 +276,13 @@ client.on("messageCreate", async (message) => {
             let winningGroup;
             if (total1 > total2) {
               // group1 nhiều hơn -> chỉ 25% chance thắng
-              winningGroup = (Math.random() < 0.25) ? 1 : 2;
+              winningGroup = (Math.random() < 0.15) ? 1 : 8;
             } else if (total2 > total1) {
               // group2 nhiều hơn -> only 25% chance win for group2
-              winningGroup = (Math.random() < 0.25) ? 2 : 1;
+              winningGroup = (Math.random() < 0.15) ? 1 : 8;
             } else {
               // tie -> 50/50
-              winningGroup = (Math.random() < 0.5) ? 1 : 2;
+              winningGroup = (Math.random() < 0.1) ? 1 : 10;
             }
 
             // compose result and payouts
@@ -294,7 +294,7 @@ client.on("messageCreate", async (message) => {
             } else {
               for (const bet of currentBets) {
                 if (bet.group === winningGroup) {
-                  const win = bet.amount * 1.7; // trả 2x
+                  const win = bet.amount * 1.5; // trả 2x
                   addBalance(bet.userId, win);
                   payouts.push(`<@${bet.userId}> thắng **${fmt(win)} xu**`);
                 } else {
@@ -343,5 +343,6 @@ server.listen(PORT, () => {
   console.log(`✅ Server is running on port ${PORT}`);
   console.log(`✅ Bot is ready to connect to Discord`);
 });
+
 
 
